@@ -1,0 +1,59 @@
+.report{
+   color:#777;
+   border-collapse:collapse;
+   th{
+   padding:15px 15px 5px 15px;
+   }
+   td{
+   background:#fafaff;
+   padding:3px 15px 3px 15px;
+   border-top: 1px solid #ddf;
+   border-bottom: 1px solid #ddf;
+   }
+   .left_border{
+   border-left: 1px solid #ddf;
+   }
+   .right_border{
+   border-right: 1px solid #ddf;
+   }
+}
+#header{
+position:fixed;
+width:100%;
+padding:5px;
+background:#000;
+background:rgba(0,0,0,0.8);
+color:#ccc;
+  a:link, a:visited{
+  padding:5px 15px 5px 15px;
+  color:#ccc;
+  font-weight:bold;
+  text-decoration:none;
+  }
+  a:hover{
+  color:#fff;
+  }
+}
+#main_padding{
+padding:5px;
+}
+.button{
+padding: 5px;
+border: 1px solid #999;
+border-radius:3px;
+text-decoration:none;
+}
+#title{
+font-size:2em;
+font-weight:bold;
+}
+#title2{
+font-size:1em;
+font-weight:bold;
+}
+#time_entries{
+border: 1px solid #999;
+border-radius:3px;
+box-shadow: 10px 10px 5px #888888;
+padding:5px;
+}

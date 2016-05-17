@@ -1,0 +1,37 @@
+<h1>Listing employees</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Username</th>
+      <th>Timeout</th>
+      <th>Active</th>
+      <th>Admin</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @employees.each do |employee| %>
+      <tr>
+        <td><%= employee.first_name %></td>
+        <td><%= employee.last_name %></td>
+        <td><%= employee.username %></td>
+        <td><%= employee.timeout %></td>
+        <td><%= employee.active %></td>
+        <td><%= employee.admin %></td>
+        <td><%= link_to 'Show', [:admin, employee] %></td>
+        <td><%= link_to 'Edit', edit_admin_employee_path(employee) %></td>
+        <td><%= link_to 'Destroy', [:admin, employee], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Employee', new_admin_employee_path %>

@@ -1,0 +1,50 @@
+<h1>Listing time entries</h1>
+
+<%= link_to 'New Time entry', new_admin_time_entry_path %>
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Employee</th>
+      <th width="50px">Total</th>
+      <th width="50px">Start</th>
+      <th width="50px">End</th>
+      <th>Hours</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% prev_name = nil %>
+    <% prev_date = nil %>
+    <% @time_entries.each do |time_entry| %>
+      <tr>
+        <% if prev_date == time_entry.entry_date %>
+          <td></td>
+        <% else %>
+          <td><%= time_entry.entry_date.strftime("%b %d") %></td>
+        <% end %>
+        <% if prev_name == "#{time_entry.employee.first_name} #{time_entry.employee.last_name}" and prev_date == time_entry.entry_date %>
+          <td></td><td></td>
+        <% else %>
+          <td><%= time_entry.employee.first_name %> <%= time_entry.employee.last_name %></td>
+          <td align="center"><%= sprintf("%.2f", time_entry.employee.total_hours_worked(start_date: time_entry.entry_date, end_date: time_entry.entry_date)) %></td>
+        <% end %>
+        <% prev_name = "#{time_entry.employee.first_name} #{time_entry.employee.last_name}" %>
+        <% prev_date = time_entry.entry_date %>
+        <td align="center"><%= time_entry.start_time.localtime.strftime("%H:%M") %>
+        <td align="center"><%= time_entry.end_time.localtime.strftime("%H:%M") %>
+        <td><%= sprintf("%.2f", time_entry.hours_worked) %></td>
+        <td><%= link_to 'Show', admin_time_entry_path(time_entry) %></td>
+        <td><%= link_to 'Edit', edit_admin_time_entry_path(time_entry) %></td>
+        <td><%= link_to 'Destroy', admin_time_entry_path(time_entry), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Time entry', new_admin_time_entry_path %>

@@ -1,0 +1,30 @@
+<%= form_for(@logged_in, url: change_password_update_path) do |f| %>
+  <% if @logged_in.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@logged_in.errors.count, "error") %> prohibited this employee from being saved:</h2>
+
+      <ul>
+      <% @logged_in.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :current_password %><br>
+    <%= f.password_field :current_password %>
+  </div>
+  <div class="field">
+    <%= f.label :new_password %><br>
+    <%= f.password_field :new_password %>
+  </div>
+  <div class="field">
+    <%= f.label :confirm_password %><br>
+    <%= f.password_field :confirm_password %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Change password" %>
+  </div>
+
+<% end %>

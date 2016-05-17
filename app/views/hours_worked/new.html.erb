@@ -1,0 +1,52 @@
+<br />
+
+<% if @prev_day %>
+<%= link_to "<<", hours_worked_path(@prev_day.strftime("%Y%m%d")), class: "button" %>
+<% end %>
+<% if @next_day %>
+<%= link_to ">>", hours_worked_path(@next_day.strftime("%Y%m%d")), class: "button" %>
+<% end %>
+<span id="title"><%= @curr_day.strftime("%A") %></span>
+<span id="title2"><%= @curr_day.strftime("%B #{@curr_day.day.ordinalize}, %Y") %></span>
+<br />
+<br />
+
+<% if @time_entries.size > 0 %>
+<table border="0" id="time_entries">
+<tr><th>Start time</th><th>End time</th><th>Hours</th><th></th></tr>
+<% @time_entries.each do |time_entry| %>
+<tr><td align="center"><%= time_entry.start_time.localtime.strftime("%H:%M") %></td>
+<td align="center"><%= time_entry.end_time.localtime.strftime("%H:%M") %></td>
+<td align="right"><%= sprintf("%.2f", time_entry.hours_worked) %></td>
+<td><%= link_to 'Destroy', delete_hours_worked_path(time_entry), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>
+<% end %>
+<tr><td></td><th>Total hours:</th><td align="right"><%= sprintf("%.2f", @time_entry.total_hours_worked) %></td></tr>
+</table>
+<br />
+<% end %>
+
+<%= form_for(@time_entry, url: hours_worked_path(@time_entry.entry_date.strftime("%Y%m%d"))) do |f| %>
+  <% if @time_entry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@time_entry.errors.count, "error") %> prohibited this time_entry from being saved:</h2>
+
+      <ul>
+      <% @time_entry.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :start_time %><br>
+    <%= f.time_select :start_time, {minute_step: 15} %>
+  </div>
+  <div class="field">
+    <%= f.label :end_time %><br>
+    <%= f.time_select :end_time, {minute_step: 15} %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

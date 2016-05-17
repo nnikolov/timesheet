@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Timesheet</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div id="header">
+<%= @logged_in.first_name %> <%= @logged_in.last_name %> <%= link_to 'Logout', logout_path %>
+<%= link_to 'Time entries', hours_worked_path(Time.now.strftime("%Y%m%d")) %>
+<%= link_to 'Change password', change_password_edit_path %>
+<% if @logged_in.admin %>
+<%= link_to 'Admin', admin_index_path %>
+<% end %>
+</div>
+<br />
+<br />
+<div id="main_padding">
+<%= yield %>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Employee:</strong>
+  <%= @time_entry.employee.first_name %>
+  <%= @time_entry.employee.last_name %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @time_entry.start_time.localtime.strftime("%H:%M")%>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @time_entry.end_time.localtime.strftime("%H:%M") %>
+</p>
+
+<p>
+  <strong>Hours worked:</strong>
+  <%= @time_entry.hours_worked %>
+</p>
+
+<p>
+  <strong>Entry date:</strong>
+  <%= @time_entry.entry_date %>
+</p>
+
+<%= link_to 'Edit', edit_admin_time_entry_path(@time_entry) %> |
+<%= link_to 'Back', admin_time_entries_path %>

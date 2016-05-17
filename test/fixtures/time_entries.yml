@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  employee_id: MyString
+  hours: 9.99
+  entry_date: 2013-10-15
+
+two:
+  employee_id: MyString
+  hours: 9.99
+  entry_date: 2013-10-15

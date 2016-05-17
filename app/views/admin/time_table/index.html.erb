@@ -1,0 +1,38 @@
+<%= form_tag(admin_time_table_update_path) do %>
+<table border="0">
+<tr><td>Start date:</td><td><%= select_date @start_date, prefix: 'start_date' %></td></tr>
+<tr><td>End date:</td><td><%= select_date @end_date, prefix: 'end_date' %></td></tr>
+<tr><td></td><td align="center"><%= submit_tag "Submit" %></td></tr>
+</table>
+<% end %>
+<br />
+<%= @start_date.strftime("%A, %b. %d, %Y") %> - <%= @end_date.strftime("%A, %b. %d, %Y") %>
+(<%= (@end_date - @start_date + 1).to_i %> days)
+
+<br />
+<table class="report">
+<% @employees.each do |employee| %>
+<tr><th><%= employee.first_name %> <%= employee.last_name %></th>
+<th align="right">Total hours</th>
+<th align="right"><%= sprintf("%.2f", employee.total_hours_worked(start_date: @start_date, end_date: @end_date)) %></th>
+</tr>
+<% (@start_date .. @end_date).each do |day| %>
+<tr><td align="right" class="left_border"><%= day.strftime("%a %b, %d") %></td>
+<td>
+<% employee.day_entries(day).each do |entry| %>
+<%= entry.start_time.localtime.strftime("%H:%M") %> -
+<%= entry.end_time.localtime.strftime("%H:%M") %> 
+<% if employee.day_entries(day).size > 1 %>
+(<%= entry.hours_worked %>)&nbsp;&nbsp;&nbsp;&nbsp;
+<% end %>
+<% end %>
+</td>
+<td align="right" class="right_border">
+<% if employee.day_entries(day).size > 0 %>
+<%= sprintf("%.2f", employee.total_hours_worked(start_date: day, end_date: day)) %>
+<% end %>
+</td>
+</tr>
+<% end %>
+<% end %>
+<table>
